@@ -32,10 +32,10 @@ $(document).ready(function() {
 
     // Initialize DataTables
     $('#leaderboard').DataTable({
-      pageLength: 10,
+      pageLength: 25,
       searching: true,
       ordering: true,
-      order: [[3, 'asc']] // Default sort by lap time
+      order: [[0, 'asc']] // Default sort by track
     });
 
     // Custom search input
