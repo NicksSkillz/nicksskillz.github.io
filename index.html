@@ -3,18 +3,115 @@
 <head>
   <meta charset="UTF-8">
   <title>🐵Monkey Racing🍌 Laptime Leaderboard</title>
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="https://files.catbox.moe/mjwedw.png">
   <!-- DataTables CSS -->
-  <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.min.css">
   <style>
-    body { font-family: Arial, sans-serif; margin: 20px; }
-    table { width: 100%; border-collapse: collapse; }
-    th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-    th { background-color: #f2f2f2; cursor: pointer; }
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 20px;
+      background-color: #f8f8f8;
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+      font-size: 2em;
+      margin-bottom: 20px;
+    }
+    #search, #reset-filter {
+      margin: 10px 0;
+      padding: 8px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    #reset-filter {
+      background-color: #ff6f61;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    #reset-filter:hover {
+      background-color: #e55a50;
+    }
+    table.dataTable {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: white;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    th {
+      background-color: #4CAF50;
+      color: white;
+      padding: 12px;
+      cursor: pointer;
+    }
+    td {
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+    }
+    tr:hover {
+      background-color: #f1f1f1;
+    }
+    .filter-link {
+      color: #0066cc;
+      text-decoration: none;
+    }
+    .filter-link:hover {
+      text-decoration: underline;
+    }
+    #loading {
+      text-align: center;
+      font-size: 18px;
+      color: #666;
+      margin: 20px 0;
+    }
+    #detail-modal {
+      display: none;
+      position: fixed;
+      top: 20%;
+      left: 20%;
+      width: 60%;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      padding: 20px;
+      z-index: 1000;
+    }
+    #modal-table th {
+      background-color: #2196F3;
+    }
+    #close-modal {
+      background-color: #ff6f61;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    #close-modal:hover {
+      background-color: #e55a50;
+    }
+    #modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 999;
+    }
   </style>
 </head>
 <body>
+  <img src="https://files.catbox.moe/mjwedw.png" alt="Monkey Racing Logo" style="width: 100px; height: 100px; display: block; margin: 0 auto;">
   <h1>🐵Monkey Racing🍌 Laptime Leaderboard</h1>
+  <div id="loading">Loading...</div>
   <input type="text" id="search" placeholder="Search by driver or car...">
+  <button id="reset-filter">Reset Filters</button>
   <table id="leaderboard" class="display">
     <thead>
       <tr>
@@ -27,10 +124,27 @@
     </thead>
     <tbody id="leaderboard-body"></tbody>
   </table>
+  <div id="detail-modal">
+    <h2 id="modal-title"></h2>
+    <table id="modal-table" class="display">
+      <thead>
+        <tr>
+          <th>Track</th>
+          <th>Car</th>
+          <th>Driver</th>
+          <th>Lap Time</th>
+          <th>Total Laps</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    <button id="close-modal">Close</button>
+  </div>
+  <div id="modal-overlay"></div>
 
   <!-- jQuery and DataTables JS -->
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
